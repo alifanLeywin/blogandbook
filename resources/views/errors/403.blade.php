@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.error')
 
 @section('content')
 <div class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
