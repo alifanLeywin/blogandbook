@@ -15,7 +15,7 @@
                 @endguest
             </div>
             <div class="col-md-6">
-                <img src="https://placehold.co/600x400" alt="Hero Image" class="img-fluid rounded shadow">
+                <img src="https://www.pngkey.com/png/detail/204-2046184_banner-policy-rules-rules-anime-banner.png" alt="Hero Image" class="img-fluid rounded shadow">
             </div>
         </div>
     </div>

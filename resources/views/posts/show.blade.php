@@ -74,14 +74,25 @@
                     @forelse ($post->comments as $comment)
                         <div class="card shadow-sm mb-3">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
                                     <div class="d-flex align-items-center">
                                         <i class="fas fa-user-circle text-muted me-2"></i>
                                         <strong>{{ $comment->user->name ?? 'Anonymous' }}</strong>
                                     </div>
-                                    <small class="text-muted">
-                                        {{ $comment->created_at->diffForHumans() }}
-                                    </small>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <small class="text-muted">
+                                            {{ $comment->created_at->diffForHumans() }}
+                                        </small>
+                                        @if(auth()->check() && (auth()->id() === $comment->user_id || auth()->user()->role === 'admin'))
+                                            <form action="{{ route('comments.destroy', $comment) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this comment?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-link text-danger p-0">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
                                 </div>
                                 <p class="card-text mb-0">{{ $comment->body }}</p>
                             </div>

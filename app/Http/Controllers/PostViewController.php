@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PostViewController extends Controller
 {
@@ -13,16 +14,40 @@ class PostViewController extends Controller
             ->with('category')
             ->withCount('comments');  // Add this to count comments
 
-        if ($request->has('search')) {
-            $query->where('title', 'like', '%' . $request->search . '%');
-        }
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                  ->orWhere('content', 'like', '%' . $search . '%');
+            });
+        }        if ($request->filled('category_id')) {
+            $category_id = (int) $request->input('category_id');
 
-        if ($request->has('category_id')) {
-            $query->where('category_id', $request->category_id);
+            Log::info('Category filter applied:', [
+                'category_id' => $category_id,
+                'request_all' => $request->all()
+            ]);
+
+            // Clone query untuk logging
+            $queryClone = clone $query;
+            $queryClone->where('category_id', $category_id);
+
+            Log::info('SQL Query:', [
+                'sql' => $queryClone->toSql(),
+                'bindings' => $queryClone->getBindings()
+            ]);
+
+            // Aplikasikan filter ke query asli
+            $query->where('category_id', $category_id);
         }
 
         $posts = $query->latest()->paginate(10);
-        $categories = \App\Models\Category::all();
+
+        // Append query parameters to pagination links
+        $posts->appends($request->all());
+
+        // Get categories with their post counts
+        $categories = \App\Models\Category::withCount('posts')->get();
 
         return view('posts.index', compact('posts', 'categories'));
     }

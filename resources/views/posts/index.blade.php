@@ -18,23 +18,32 @@
                         <span class="input-group-text bg-white">
                             <i class="fas fa-search text-muted"></i>
                         </span>
-                        <input type="text" name="search" class="form-control" value="{{ request('search') }}" placeholder="Search posts...">
+                        <input type="text"
+                               name="search"
+                               class="form-control"
+                               value="{{ request('search') }}"
+                               placeholder="Search posts by title or content...">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <select name="category_id" class="form-select">
                         <option value="">All Categories</option>
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
-                                {{ $category->name }}
+                            <option value="{{ $category->id }}" {{ request()->get('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }} ({{ $category->posts_count }})
                             </option>
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100">
+                <div class="col-md-2 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-grow-1">
                         <i class="fas fa-filter me-1"></i> Filter
                     </button>
+                    @if(request('search') || request('category_id'))
+                        <a href="{{ route('posts.index') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    @endif
                 </div>
             </form>
         </div>
