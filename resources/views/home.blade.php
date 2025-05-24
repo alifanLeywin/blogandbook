@@ -99,5 +99,76 @@
             @endforelse
         </div>
     </section>
+
+    <!-- About/Creator Section -->
+    <section class="py-5 bg-light rounded-3 mb-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <img src="https://avatars.githubusercontent.com/u/178992257?v=4" alt="Creator"
+                         class="img-fluid rounded-circle shadow" style="max-width: 300px;">
+                </div>
+                <div class="col-md-6">
+                    <h2 class="h3 mb-4">About the Creator</h2>
+                    <div class="mb-4">
+                        <h4 class="h5 text-primary">alifanLeywin</h4>
+                        <p class="lead">Passionate about creating beautiful and functional web applications using Laravel and modern web technologies.</p>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <a href="https://github.com/alifanLeywin" target="_blank" class="btn btn-dark">
+                            <i class="fab fa-github me-2"></i>GitHub
+                        </a>
+                    </div>
+                    <div class="mt-4">
+                        <h5 class="h6 mb-3">Tech Stack Used:</h5>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-primary">Laravel</span>
+                            <span class="badge bg-info">PHP</span>
+                            <span class="badge bg-success">MySQL</span>
+                            <span class="badge bg-warning text-dark">JavaScript</span>
+                            <span class="badge bg-danger">HTML5/CSS3</span>
+                            <span class="badge bg-secondary">Bootstrap 5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <br><br><br>
+
+    <!-- About/Creator Section -->
+    <section class="py-5 bg-light rounded-3 mb-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <img src="https://avatars.githubusercontent.com/u/149368023?v=4" alt="Creator"
+                         class="img-fluid rounded-circle shadow" style="max-width: 300px;">
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <h4 class="h5 text-primary">Rafpelmln</h4>
+                        <p class="lead">Passionate about creating beautiful and functional web applications using Laravel and modern web technologies.</p>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <a href="https://github.com/rafpelmln" target="_blank" class="btn btn-dark">
+                            <i class="fab fa-github me-2"></i>GitHub
+                        </a>
+                    </div>
+                    <div class="mt-4">
+                        <h5 class="h6 mb-3">Tech Stack Used:</h5>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-primary">Laravel</span>
+                            <span class="badge bg-info">PHP</span>
+                            <span class="badge bg-success">MySQL</span>
+                            <span class="badge bg-warning text-dark">JavaScript</span>
+                            <span class="badge bg-danger">HTML5/CSS3</span>
+                            <span class="badge bg-secondary">Bootstrap 5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 @endsection

@@ -167,14 +167,6 @@
                 <p class="text-light">Discover amazing books and engaging blog posts all in one place. Your go-to platform for reading and sharing knowledge.</p>
             </div>
             <div class="col-md-4">
-                <h5 class="mb-3">Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="{{ route('home') }}" class="text-light text-decoration-none">Home</a></li>
-                    <li><a href="{{ route('books.index') }}" class="text-light text-decoration-none">Books</a></li>
-                    <li><a href="{{ route('posts.index') }}" class="text-light text-decoration-none">Blog</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
                 <h5 class="mb-3">Connect With Us</h5>
                 <div class="d-flex gap-3">
                     <a href="#" class="text-light"><i class="fab fa-facebook fa-lg"></i></a>
