@@ -5,7 +5,26 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-birdonk: #071952;
+    --color-jotu: #0B666A;
+    --color-jodeng: #35A29F;
+    --color-jomud: #97FEED;
+
+    --color-jobu: #727D73;
+    --color-jocet: #AAB99A;
+    --color-bumud: #D0DDD0;
+    --color-krejo: #F0F0D7;
+}
+
+.sidebar-collapsed {
+    width: 4.5rem; /* atau w-16 */
+}
+
+.sidebar-collapsed .sidebar-text {
+    display: none;
 }

@@ -1,64 +1,98 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<h2>{{ isset($book) ? 'Edit Book' : 'Add New Book' }}</h2>
+    <h2 class="text-2xl font-bold mb-6 text-jotu dark:text-bumud">
+        {{ isset($book) ? 'Edit Book' : 'Add New Book' }}
+    </h2>
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    @if ($errors->any())
+        <div class="mb-4 p-4 bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200 rounded">
+            <ul class="list-disc pl-5 space-y-1">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-<form method="POST" action="{{ isset($book) ? route('admin.books.update', $book) : route('admin.books.store') }}" enctype="multipart/form-data">
-    @csrf
-    @if(isset($book)) @method('PUT') @endif
+    <form method="POST"
+          action="{{ isset($book) ? route('admin.books.update', $book) : route('admin.books.store') }}"
+          enctype="multipart/form-data"
+          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-5">
 
-    <div class="mb-3">
-        <label>Title</label>
-        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $book->title ?? '') }}" required>
-        @error('title')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-    </div>
+        @csrf
+        @if(isset($book)) @method('PUT') @endif
 
-    <div class="mb-3">
-        <label>Description</label>
-        <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="3" required>{{ old('description', $book->description ?? '') }}</textarea>
-        @error('description')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-    </div>
+        <!-- Title -->
+        <div>
+            <label class="block font-medium text-sm text-gray-700 dark:text-gray-200 mb-1">Title</label>
+            <input type="text"
+                   name="title"
+                   value="{{ old('title', $book->title ?? '') }}"
+                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-jotu transition @error('title') border-red-500 @enderror"
+                   required>
+            @error('title')
+                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
-    <div class="mb-3">
-        <label>Category</label>
-        <select name="category_id" class="form-control @error('category_id') is-invalid @enderror" required>
-            <option value="">Select Category</option>
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}" {{ (old('category_id', $book->category_id ?? '') == $category->id) ? 'selected' : '' }}>
-                    {{ $category->name }}
-                </option>
-            @endforeach
-        </select>
-        @error('category_id')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-    </div>
+        <!-- Description -->
+        <div>
+            <label class="block font-medium text-sm text-gray-700 dark:text-gray-200 mb-1">Description</label>
+            <textarea name="description"
+                      rows="3"
+                      required
+                      class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-jotu transition @error('description') border-red-500 @enderror">{{ old('description', $book->description ?? '') }}</textarea>
+            @error('description')
+                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
-    <div class="mb-3">
-        <label>Upload PDF</label>
-        <input type="file" name="pdf_file" class="form-control @error('pdf_file') is-invalid @enderror" {{ isset($book) ? '' : 'required' }} accept=".pdf">
-        @error('pdf_file')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-        @if(isset($book) && $book->pdf_path)
-            <small class="text-muted">Current: <a href="{{ asset('storage/' . $book->pdf_path) }}" target="_blank">View PDF</a></small>
-        @endif
-    </div>
+        <!-- Category -->
+        <div>
+            <label class="block font-medium text-sm text-gray-700 dark:text-gray-200 mb-1">Category</label>
+            <select name="category_id"
+                    required
+                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-jotu transition @error('category_id') border-red-500 @enderror">
+                <option value="">-- Select Category --</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}"
+                        {{ (old('category_id', $book->category_id ?? '') == $category->id) ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('category_id')
+                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
-    <button type="submit" class="btn btn-success">Save</button>
-</form>
+        <!-- PDF Upload -->
+        <div>
+            <label class="block font-medium text-sm text-gray-700 dark:text-gray-200 mb-1">Upload PDF</label>
+            <input type="file"
+                   name="pdf_file"
+                   accept=".pdf"
+                   {{ isset($book) ? '' : 'required' }}
+                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-jotu transition @error('pdf_file') border-red-500 @enderror">
+            @error('pdf_file')
+                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+            @enderror
+            @if(isset($book) && $book->pdf_path)
+                <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                    Current File: <a href="{{ asset('storage/' . $book->pdf_path) }}" target="_blank"
+                                     class="text-blue-600 dark:text-blue-400 hover:underline">View PDF</a>
+                </p>
+            @endif
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-end gap-2">
+            <a class="bg-jotu dark:bg-jobu hover:bg-jodeng dark:hover:bg-jocet text-white px-5 py-2 rounded-lg transition" href="{{ route('admin.books.index') }}">Back</a>
+            <button type="submit"
+                    class="bg-jotu dark:bg-jobu hover:bg-jodeng dark:hover:bg-jocet text-white px-5 py-2 rounded-lg transition">
+                {{ isset($book) ? 'Update Book' : 'Save Book' }}
+            </button>
+        </div>
+    </form>
 @endsection
